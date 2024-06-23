@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-image: url('background-image.jpg'); /* Add your image file */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8); /* Add background color or opacity */
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 600px; /* Increased width */
+    position: relative;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+header h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+header input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+header button {
+    padding: 10px 20px;
+    background: #ff6b81;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+header button:hover {
+    background: #ff4757;
+}
+.notification-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f44336; /* Red color */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+
+
+main {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+main ul {
+    list-style: none;
+    padding-left: 5px;
+    padding-right: 50px;
+    
+}
+
+main ul li {
+    background: #ffb6c1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%; /* Ensure task boxes stretch to full width */
+}
+
+main ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.task-info {
+    flex-grow: 1;
+    margin-right: 10px; /* Add some space between task info and buttons */
+}
+
+.notify-btn, .edit-btn, .delete-btn, .view-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 5px 10px;
+    transition: background 0.3s;
+}
+
+.notify-btn:hover, .edit-btn:hover, .delete-btn:hover, .view-btn:hover {
+    background: #f0f0f0;
+}
+
+.notify-btn.active {
+    background: #64625a;
+}
+
+.sidebar {
+    width: 250px;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    background: #333;
+    color: #fff;
+    transition: left 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+}
+
+.close-sidebar {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #555;
+}
+
+.admin-info {
+    padding: 10px 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #444;
+}
+
+.admin-info p {
+    margin: 0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Increased max-width */
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.modal-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background: #ff6b81;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.modal-content button:hover {
+    background: #ff4757;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+/* Active bell icon styles */
+.notify-btn.active i {
+    color: #ffc107; /* Change color to indicate activation */
+    content: '\f0f3'; /* Change icon if needed, e.g., to a filled bell */
+}
+
+/* Tooltip styles */
+.info-icon {
+    margin-right: 10px; /* Add space between icon and checkbox */
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.info-icon .tooltip-text {
+    visibility: hidden;
+    width: 150px; /* Reduce width of the tooltip */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px; /* Reduce font size */
+}
+
+.info-icon .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.info-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Bell icon tooltip */
+.notify-btn {
+    position: relative;
+    margin-left: 10px;
+}
+
+.notify-btn .tooltip-text {
+    visibility: hidden;
+    width: 180px; /* Set width of the tooltip */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px; /* Reduce font size */
+}
+
+.notify-btn .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.notify-btn:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Checkbox styles */
+.task-checkbox {
+    display: none; /* Hide the default checkbox */
+}
+
+.task-checkbox + label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff6b81;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-right: 30px; /* Add space between checkbox and content */
+    vertical-align: middle;
+}
+
+.task-checkbox + label:before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: #ff6b81;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.3s;
+    border-radius: 2px;
+}
+
+.task-checkbox:checked + label {
+    border-color: #ff6b81;
+}
+
+.task-checkbox:checked + label:before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.task-checkbox + label:hover {
+    background-color: rgba(255, 107, 129, 0.1);
+}
